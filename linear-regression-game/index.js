@@ -5,16 +5,26 @@ let m, b;
 let ball;
 let speed = 2; // Speed factor for ball movement
 let gameOver = false; // Game over flag
+let startTime, elapsedTime; // Timer variables
+let timerRunning = false; // Timer running flag
 
 const learningRate = 0.5;
 const optimizer = tf.train.sgd(learningRate);
 
 function setup() {
-  createCanvas(windowWidth, windowHeight); // Create a canvas that matches the window size
+  let canvas = createCanvas(windowWidth, windowHeight); // Create a canvas that matches the window size
+  canvas.parent('canvas-container'); // Attach canvas to the canvas-container div
   m = tf.variable(tf.scalar(0)); // Slope of the line (0 for a straight line)
   b = tf.variable(tf.scalar(0.5)); // Y-intercept of the line (middle of the canvas)
   ball = new Ball(width / 2, height / 2); // Initialize the ball at the center of the canvas
   background(0); // Set background color to black
+
+  let startButton = select('#startButton');
+  startButton.mousePressed(startGame);
+
+  let restartButton = select('#restartButton');
+  restartButton.mousePressed(restartGame);
+  restartButton.hide();
 }
 
 function windowResized() {
@@ -34,7 +44,7 @@ function predict(x) {
 }
 
 function mousePressed() {
-  if (!gameOver) {
+  if (!gameOver && timerRunning) {
     let x = map(mouseX, 0, width, 0, 1);
     let y = map(mouseY, 0, height, 1, 0);
     x_vals.push(x);
@@ -49,7 +59,17 @@ function draw() {
     textSize(64);
     textAlign(CENTER, CENTER);
     text("Game Over", width / 2, height / 2);
+
+    textSize(32);
+    text(`Time: ${nf(floor(elapsedTime / 60), 2)}:${nf(elapsedTime % 60, 2)}`, width / 2, height / 2 + 80);
+
+    select('#restartButton').show();
     return;
+  }
+
+  if (timerRunning) {
+    elapsedTime = floor((millis() - startTime) / 1000);
+    select('#timer').html(`Time: ${nf(floor(elapsedTime / 60), 2)}:${nf(elapsedTime % 60, 2)}`);
   }
 
   tf.tidy(() => {
@@ -89,6 +109,7 @@ function draw() {
 
   if (ball.isGameOver()) {
     gameOver = true;
+    timerRunning = false;
   }
 
   console.log(tf.memory().numTensors);
@@ -139,11 +160,7 @@ class Ball {
     this.x += this.vx;
 
     // Keep ball within canvas boundaries
-    if (this.x < 0) {
-      this.x = 0;
-      this.gameOver();
-    } else if (this.x > width) {
-      this.x = width;
+    if (this.x < 0 || this.x > width) {
       this.gameOver();
     }
   }
@@ -162,3 +179,14 @@ class Ball {
     return gameOver;
   }
 }
+
+function startGame() {
+  let startButton = select('#startButton');
+  startButton.hide();
+  timerRunning = true;
+  startTime = millis();
+}
+
+function restartGame() {
+    location.reload(); // Reload the page
+  }

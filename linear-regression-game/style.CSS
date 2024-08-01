@@ -5,3 +5,53 @@ html, body {
   canvas {
     display: block;
   }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #282c34;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+
+  #canvas-container {
+    position: relative;
+  }
+
+  canvas {
+    display: block;
+    border: 2px solid #61dafb;
+  }
+
+  #timer {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+  }
+
+  button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: #61dafb;
+    color: #282c34;
+    border: none;
+    cursor: pointer;
+  }
+
+  #startButton {
+    top: 50%;
+  }
+
+  #restartButton {
+    top: 60%;
+  }
+
+  .hidden {
+    display: none;
+  }
