@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Text Extraction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Upload an Image for OCR Scan</h1>
+    <div id="options">
+        <button id="ocr-scan">OCR Scan</button>
+        <button id="ocr-creditCard-scan">OCR Credit Card Scan</button>
+        <button id="ocr-debitCard-scan">OCR Debit Card Scan</button>
+        <button id="ocr-pancard-scan">OCR PAN Card Scan</button>
+        <button id="ocr-adharcard-scan">OCR Aadhaar Card Scan</button>
+    </div>
+    <input type="file" id="upload" accept="image/*" style="display:none;">
+    <div id="result"></div>
+
+    <script src="/dist/bundle.js"></script>
+</body>
+</html>
