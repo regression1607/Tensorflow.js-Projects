@@ -30,4 +30,3 @@ TensorFlow.js was originally launched in March 2018 as deeplearn.js, an open-sou
 - **Week 3:** Integrating TensorFlow.js with other libraries and frameworks.
 - **Week 4:** Final project - building a complete application using TensorFlow.js.
 
-  ```
