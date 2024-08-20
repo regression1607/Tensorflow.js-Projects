@@ -65,3 +65,4 @@ Why derivative/differentiation is used ?
 When updating the curve, to know in which direction and how much to change or update the curve depending upon the slope.That is why we use differentiation in almost every part of Machine Learning and Deep Learning.
 ![alt text](image.png)
 ![alt text](image-1.png)
+
